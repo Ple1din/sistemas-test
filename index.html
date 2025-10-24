@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Proyecto: Sistema Automotriz ABS — Investigación • Diseño • Simulación • Emulación</title>
   <style>
-    :root{
-      --bg:#0b0f14; --card:#121821; --ink:#e8f0ff; --muted:#9fb0c7; --brand:#00d1ff; --accent:#8fff7a; --danger:#ff4d6d;
+    :root {
+      --bg:#0b0f14; --card:#121821; --ink:#e8f0ff; --muted:#9fb0c7;
+      --brand:#00d1ff; --accent:#8fff7a; --danger:#ff4d6d;
       --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:linear-gradient(180deg,#0b0f14,#0a0d12);color:var(--ink);font:500 16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#0b0f14,#0a0d12);
+      color:var(--ink);
+      font:500 16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial
+    }
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
     header{position:sticky;top:0;z-index:10;background:rgba(11,15,20,.7);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
@@ -23,20 +29,13 @@
     nav button.active{border-color:transparent;background:linear-gradient(90deg,var(--brand),#5ef3d3);color:#041521;font-weight:800}
     main{max-width:1080px;margin:20px auto;padding:0 16px 40px}
     .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin:14px 0;border:1px solid rgba(255,255,255,.06)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     h2{margin:8px 0 12px}
-    h3{margin:8px 0}
     p,li{color:var(--muted)}
-    code, pre{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
     pre{background:#0a111a;border:1px solid rgba(255,255,255,.06);padding:12px;border-radius:14px;overflow:auto}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.1);padding:4px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
-    .ok{color:var(--accent)}
-    .todo{color:var(--danger)}
-    iframe{width:150%;height:850px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:#0a111a}
+    iframe{width:100%;height:88vh;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:#0a111a}
+    img{max-width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.06)}
     section[hidden]{display:none}
-    .rubrica{display:grid;grid-template-columns:1fr 120px;gap:8px;align-items:center}
-    .rubrica b{color:var(--ink)}
-    footer{color:#6f819a;text-align:center;padding:30px 0 60px}
   </style>
 </head>
 <body>
@@ -48,155 +47,200 @@
       <button data-tab="investigacion">a) Investigación</button>
       <button data-tab="diseno">b) Diseño conceptual</button>
       <button data-tab="marie">c) Simulación MARIE.js</button>
-      <button data-tab="arduino">Simulación Arduino</button>
       <button data-tab="esp32">d) Emulación ESP32</button>
-      <button data-tab="docs">e) Documentación / Rubrica</button>
     </nav>
   </div>
 </header>
 
 <main>
+   <!-- RESUMEN -->
+  <section id="resumen" class="card">
+    <h2>Resumen</h2>
+    <p>
+      Este proyecto implementa un <b>sistema ABS (Anti-lock Braking System)</b> simplificado: primero se modela y simula el comportamiento en
+      <b>MARIE.js</b> (ensamblador educativo) y después se emula con <b>ESP32</b> (potenciómetro = velocidad, botón = pedal de freno,
+      LEDs = ruedas y testigo ABS). El objetivo es ilustrar cómo el ABS <i>libera/aplica</i> freno para evitar bloqueo de ruedas.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>¿Qué es el ABS y por qué importa?</h3>
+        <p>El ABS evita que las ruedas se bloqueen en frenadas de emergencia. Mantener el giro de la rueda
+          conserva la direccionalidad y acorta distancia de frenado sobre firmes con adherencia variable.</p>
+        <div class="pill">Principio: comparar velocidad de rueda vs vehículo → si hay <i>slip</i> alto ⇒ liberar; si no ⇒ aplicar</div>
+      </div>
+      <div class="card">
+        <h3>Video (40s)</h3>
+        <iframe style="height:360px" src="https://www.youtube.com/embed/JGukqP1auzQ" title="ABS corto"></iframe>
+      </div>
+    </div>
 
-  <!-- MARIE.JS -->
+    <h3>Creadores</h3>
+    <div class="creds">
+      <div class="person">
+        <img src="autor1.jpg" alt="Autor 1" />
+        <div>
+          <b>Autor 1: Yael Sebastián González Hernández</b><br/>
+          Diseño, programación, implementación en MARIE y emulación en ESP32.
+        </div>
+      </div>
+      <div class="person">
+        <img src="autor2.png" alt="Autor 2" />
+        <div>
+          <b>Autor 2: Luis Gaytán García</b><br/>
+          Diseño, programación, implementación en MARIE y emulación en ESP32.
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <!-- INVESTIGACIÓN -->
+  <section id="investigacion" class="card" hidden>
+    <h2>a) Investigación (antecedente)</h2>
+    <p><i>Contexto breve:</i> El ABS utiliza sensores de velocidad de rueda, una ECU y actuadores hidráulicos para modular la presión de frenado.
+       En nuestra simulación el fenómeno se abstrae a diferencias de velocidad rueda-vehículo y reglas de liberación/aplicación.</p>
+
+    <details open>
+      <summary>Antecedente (documento entregado)</summary>
+      <div id="antecedente-doc" class="antecedente-texto">
+        <p>En la industria automotriz, siempre se busca ser más eficientes, seguros y confiables. Mediante la revolución de la electrónica se busca satisfacer las anteriores metas atendiendo problemas comunes con soluciones complejas pero útiles como el sistema antibloqueo de frenos, el control de temperatura, la inyección de combustible, la asistencia de conducción y la activación de airbags; son solo una parte de varias soluciones a distintos problemas. La comprensión de los problemas que atienden, las variables involucradas y la relación con el procesamiento de datos permite visualizar el vínculo entre avances históricos como la máquina de Von Neumann y los sistemas ciberfísicos actuales.</p>
+
+        <p>En este documento se busca investigar las problemáticas en la industria automotriz y la forma en que la electrónica brinda ayuda al momento de resolverlas; la identificación de variables fundamentales que intervienen en dichas problemáticas; ver cómo el conocimiento se usa en otras industrias y reflexionar sobre esto, en industrias como la aeroespacial y la transformación digital.</p>
+
+        <p>En la actualidad, el automóvil cuenta con varios sistemas electrónicos que se apoyan en conjunto para garantizar robustez, eficiencia y seguridad. Un ejemplo es el sistema ABS, que evita que al frenar bruscamente se bloqueen las ruedas, para regular la mezcla de aire-combustible por medio del control electrónico de inyección, con el fin de tener un rendimiento óptimo del motor y reducir emisiones. La gestión térmica es otro caso ejemplar, buscando la temperatura adecuada en distintos componentes (motores, baterías y componentes eléctricos).</p>
+
+        <p>La seguridad pasiva también depende de la electrónica: los sensores de impacto y acelerómetros activan los airbags en fracciones de segundo durante un choque. A esto se suman los sistemas de asistencia al conductor, como el control de crucero adaptativo y el frenado autónomo de emergencia, que emplean radares, cámaras y algoritmos avanzados para percibir el entorno y reaccionar en tiempo real. La electrificación ha traído nuevas necesidades, como la gestión del estado de carga y la temperatura de las baterías en vehículos eléctricos. Finalmente, las redes internas del vehículo, como CAN o Ethernet automotriz, permiten la comunicación entre decenas de unidades de control electrónico (ECU), posibilitando diagnósticos y actualizaciones remotas.</p>
+
+        <p>Cada uno de estos sistemas trabaja gracias a la medición continua de variables físicas. En el caso del ABS, se monitorean la velocidad de las ruedas, la desaceleración del vehículo, el ángulo del volante y la presión de frenado. Para el control de inyección se consideran la cantidad de aire que entra al motor, la presión del colector, la temperatura del refrigerante y las emisiones. La gestión térmica requiere el seguimiento de temperaturas en distintos puntos y caudales de refrigerante, mientras que los airbags dependen de la aceleración detectada por sensores de impacto.</p>
+
+        <p>Estas variables son recogidas por sensores, convertidas a señales digitales y enviadas a las ECUs, que ejecutan algoritmos en tiempo real. Dichos algoritmos van desde controladores clásicos (PID) hasta estimadores avanzados como filtros de Kalman, modelos predictivos o incluso redes neuronales ligeras en el caso de sistemas de asistencia. Además, el almacenamiento de datos permite analizarlos posteriormente para diagnóstico, mantenimiento predictivo y mejora de software, con un ciclo constante de retroalimentación.</p>
+
+        <p>Los retos y principios presentes en el sector automotriz también aparecen en otros campos tecnológicos. En la industria aeroespacial, por ejemplo, los sistemas de control de vuelo (fly‑by‑wire) dependen igualmente de sensores de posición, acelerómetros y sistemas de control robustos con alta tolerancia a fallas. La gestión térmica en los automóviles eléctricos encuentra un paralelo en la refrigeración de los módulos de potencia de un avión o de un satélite. Los sistemas de inyección de combustible tienen su equivalente en los controles FADEC de las turbinas aéreas. La comunicación entre componentes electrónicos en los aviones se da mediante protocolos especializados como ARINC o MIL‑STD‑1553, similares en función al CAN automotriz, aunque con mayores exigencias de seguridad y redundancia.</p>
+
+        <p>En todos estos casos, la correcta medición, transmisión y procesamiento de variables físicas es el núcleo de los sistemas ciberfísicos, que integran software y hardware para responder en tiempo real a las condiciones del mundo físico.</p>
+
+        <p>La máquina de Von Neumann fue el punto de partida para la computación moderna. Su arquitectura, basada en una unidad de procesamiento central que ejecuta instrucciones almacenadas en una memoria compartida con los datos, permitió resolver problemas matemáticos y científicos con gran flexibilidad. Sin embargo, los sistemas de control en tiempo real, como los presentes en vehículos, requieren reaccionar con precisión no solo a qué se calcula, sino también cuándo se calcula.</p>
+
+        <p>A diferencia de las arquitecturas secuenciales, los sistemas ciberfísicos distribuyen el procesamiento entre múltiples ECUs interconectadas mediante redes deterministas. Cada ECU se encarga de monitorear y controlar una parte específica del vehículo, garantizando respuestas rápidas y seguras. La transformación digital ha permitido que funciones antes rígidas, dependientes de hardware específico, se implementen ahora en software portátil, con actualizaciones remotas (OTA) y gemelos digitales que facilitan la simulación y la mejora continua.</p>
+
+        <p>Esta transición refleja un cambio de paradigma: del cómputo aislado al control dinámico de sistemas complejos e interconectados, impulsado por el crecimiento de la conectividad y el análisis de grandes volúmenes de datos.</p>
+
+        <p>La electrónica automotriz no solo ha permitido mejorar la seguridad y el rendimiento de los vehículos, sino que también ha servido de puente hacia un enfoque más amplio de sistemas ciberfísicos que impactan industrias tan diversas como la aeroespacial o la energética. Las mismas variables —posición, velocidad, temperatura, presión— adquieren sentido diferente según el contexto, pero siempre dependen de la capacidad de los sistemas para medir, analizar y responder de manera confiable y en tiempo real.</p>
+
+        <p>El tránsito desde la arquitectura de Von Neumann hacia ecosistemas distribuidos y conectados refleja la evolución de la computación: de procesar números a interactuar con el mundo físico. Esta transformación digital continúa ampliando las posibilidades de innovación y eficiencia en diversas industrias.</p>
+
+        <div class="referencias">
+          <h4>Referencias (formato APA)</h4>
+          <ul>
+            <li>ISO. (2018). ISO 26262: Road vehicles — Functional safety (2ª ed.). International Organization for Standardization.</li>
+            <li>SAE International. (2021). Taxonomy and Definitions for Terms Related to Driving Automation Systems for On‑Road Motor Vehicles (J3016_202104). SAE.</li>
+            <li>Rajamani, R. (2012). Vehicle Dynamics and Control (2nd ed.). Springer.</li>
+            <li>Lee, E. A., & Seshia, S. A. (2017). Introduction to Embedded Systems: A Cyber‑Physical Systems Approach (2nd ed.). MIT Press.</li>
+            <li>Paden, B., Čáp, M., Yong, S. Z., Yershov, D., & Frazzoli, E. (2016). A survey of motion planning and control techniques for self‑driving urban vehicles. IEEE Transactions on Intelligent Vehicles, 1(1), 33–55.</li>
+            <li>Heisler, H. (2002). Advanced Vehicle Technology (2nd ed.). Butterworth‑Heinemann.</li>
+            <li>Isermann, R. (2006). Fault‑Diagnosis Systems: An Introduction from Fault Detection to Fault Tolerance. Springer.</li>
+            <li>AUTOSAR. (2023). Adaptive Platform – Foundation. AUTOSAR Consortium.</li>
+            <li>O’Terror do Cumulonimbo. (2020, 5 de abril). Control del motor: EEC y FADEC. El vuelo de la Gran Avutarda. Recuperado de https://greatbustardsflight.blogspot.com/2020/04/control-del-motor-eec-y-fadec.html</li>
+            <li>National Geographic España. (2024, 13 de febrero). Cómo John von Neumann revolucionó la informática. National Geographic España. https://www.nationalgeographic.com.es/ciencia/como-john-von-neumann-revoluciono-la-informatica_21580#:~:text=La%20máquina%20de%20Neumann,actual%20de%20estudio%20del%20clima.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- DISEÑO -->
+  <section id="diseno" class="card" hidden>
+    <h2>b) Diseño conceptual</h2>
+    <p><b>Diagrama de bloques</b> del sistema ABS simplificado (señales, direcciones y procesamiento).</p>
+    <p><i>Colocar imagen cuando la tengas:</i></p>
+    <img src="Diagrama de bloques ABS.drawio.png" alt="Diagrama de bloques ABS">
+    
+    <!-- Seudocódigo -->
+    <h3>Seudocódigo</h3>
+    <pre><code>// recordar: todo en decimal
+
+        // --- Entradas y constantes ---
+        leer VEL_IN                         // velocidad inicial (0..MAX)
+        TAU ← 1                             // umbral de slip para activar ABS
+        K_APL ← 3                           // cuánto baja la rueda si NO hay ABS
+        K_LIB ← 4                           // cuánto sube la rueda si hay ABS
+        K_VEH ← 1                           // desaceleración del vehículo sin ABS
+        K_VEHm1 ← 7                         // desaceleración del vehículo con ABS
+
+        // --- Inicialización ---
+        Vveh ← VEL_IN
+        V_DI ← VEL_IN                       // delantera izquierda
+        V_DD ← máx(VEL_IN − 1, 0)           // delantera derecha
+        V_TI ← máx(VEL_IN − 2, 0)           // trasera izquierda
+        V_TD ← máx(VEL_IN − 1, 0)           // trasera derecha
+        ABS_FLAG ← 0
+
+        // --- Bucle principal ---
+        mientras (Vveh > 0 ó V_DI>0 ó V_DD>0 ó V_TI>0 ó V_TD>0) hacer
+        // 1) Slip por rueda (positivo = rueda más lenta que vehículo)
+        DES_DI ← Vveh − V_DI
+        DES_DD ← Vveh − V_DD
+        DES_TI ← Vveh − V_TI
+        DES_TD ← Vveh − V_TD
+
+        // 2) Detección ABS por rueda
+        ACT_DI ← (DES_DI > TAU) ? 1 : 0
+        ACT_DD ← (DES_DD > TAU) ? 1 : 0
+        ACT_TI ← (DES_TI > TAU) ? 1 : 0
+        ACT_TD ← (DES_TD > TAU) ? 1 : 0
+        ABS_FLAG ← (ACT_DI OR ACT_DD OR ACT_TI OR ACT_TD)
+
+        // 3) Desaceleración del vehículo (más fuerte si hay ABS)
+        si (ABS_FLAG = 1) entonces
+            Vveh ← máx(Vveh − K_VEHm1, 0)
+        si no
+            Vveh ← máx(Vveh − K_VEH, 0)
+        fin si
+
+        // 4) Ajuste por rueda (liberar si ABS activo, aplicar si no)
+        // DI
+        si (ACT_DI = 1) entonces V_DI ← V_DI + K_LIB
+        si no                     V_DI ← máx(V_DI − K_APL, 0)
+        fin si
+        V_DI ← clamp(V_DI, 0, Vveh)                 // V_DI ∈ [0, Vveh]
+        si (Vveh > 0 y V_DI = 0) entonces V_DI ← 1  // anti-bloqueo duro
+
+        // DD
+        si (ACT_DD = 1) entonces V_DD ← V_DD + K_LIB
+        si no                     V_DD ← máx(V_DD − K_APL, 0)
+        fin si
+        V_DD ← clamp(V_DD, 0, Vveh)
+        si (Vveh > 0 y V_DD = 0) entonces V_DD ← 1
+
+        // TI
+        si (ACT_TI = 1) entonces V_TI ← V_TI + K_LIB
+        si no                     V_TI ← máx(V_TI − K_APL, 0)
+        fin si
+        V_TI ← clamp(V_TI, 0, Vveh)
+        si (Vveh > 0 y V_TI = 0) entonces V_TI ← 1
+
+        // TD
+        si (ACT_TD = 1) entonces V_TD ← V_TD + K_LIB
+        si no                     V_TD ← máx(V_TD − K_APL, 0)
+        fin si
+        V_TD ← clamp(V_TD, 0, Vveh)
+        si (Vveh > 0 y V_TD = 0) entonces V_TD ← 1
+
+        // 5) (Opcional) Mostrar/registrar: V_DI, V_DD, V_TI, V_TD, Vveh, ABS_FLAG
+        fin mientras
+
+        // --- Fin ---
+        imprimir "0" y detener
+
+        // Utilidades
+        función clamp(x, lo, hi): si x<lo devolver lo; si x>hi devolver hi; en otro caso devolver x
+        función máx(a, b): devolver el mayor de a y b
+    </code></pre>
+  </section>
+
+    <!-- MARIE.JS -->
   <section id="marie" class="card" hidden>
     <h2>c) Simulación en MARIE.js</h2>
     <iframe src="https://marie.js.org/#project={%22code%22:%22/%20recordar%20siempre%20poner%20todo%20en%20decimal\n\n%20%20%20%20%20%20%20%20ORG%20%20%20%20%20100\n\n/%20entrada%20y%20validaci%C3%B3n\nINICIO,%20Input\n%20%20%20%20%20%20%20%20Store%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Load%20%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Jump%20%20%20%20ERR_VEL\n\n/%20inicializaci%C3%B3n\nVAL_OK,%20Load%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Store%20%20Vveh\n\n%20%20%20%20%20%20%20%20Load%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Store%20%20V_DI\n%20%20%20%20%20%20%20%20Load%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Subt%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20V_DD\n%20%20%20%20%20%20%20%20Load%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Subt%20%20%20TWO\n%20%20%20%20%20%20%20%20Store%20%20V_TI\n%20%20%20%20%20%20%20%20Load%20%20%20VEL_IN\n%20%20%20%20%20%20%20%20Subt%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20V_TD\n\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20ABS_FLAG\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20CICLO\n\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_BASE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n/%20ciclo%20principal\nLOOP,%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20CONT1\n%20%20%20%20%20%20%20%20Load%20%20%20V_DI\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20CONT1\n%20%20%20%20%20%20%20%20Load%20%20%20V_DD\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20CONT1\n%20%20%20%20%20%20%20%20Load%20%20%20V_TI\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20CONT1\n%20%20%20%20%20%20%20%20Load%20%20%20V_TD\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20CONT1\n%20%20%20%20%20%20%20%20Jump%20%20%20FIN\n\n/%20calcular%20deslizamientos\nCONT1,%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_DI\n%20%20%20%20%20%20%20%20Store%20%20DES_DI\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_DD\n%20%20%20%20%20%20%20%20Store%20%20DES_DD\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_TI\n%20%20%20%20%20%20%20%20Store%20%20DES_TI\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_TD\n%20%20%20%20%20%20%20%20Store%20%20DES_TD\n\n/%20detectar%20slip%20alto%20(act=1%20si%20libera)\n%20%20%20%20%20%20%20%20Load%20%20%20DES_DI\n%20%20%20%20%20%20%20%20Subt%20%20%20TAU\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20ACT_DI\n%20%20%20%20%20%20%20%20Jump%20%20%20ADI_OK\n%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20ACT_DI\nADI_OK,%20Load%20%20%20DES_DD\n%20%20%20%20%20%20%20%20Subt%20%20%20TAU\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20ACT_DD\n%20%20%20%20%20%20%20%20Jump%20%20%20ADD_OK\n%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20ACT_DD\nADD_OK,%20Load%20%20%20DES_TI\n%20%20%20%20%20%20%20%20Subt%20%20%20TAU\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20ACT_TI\n%20%20%20%20%20%20%20%20Jump%20%20%20ATI_OK\n%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20ACT_TI\nATI_OK,%20Load%20%20%20DES_TD\n%20%20%20%20%20%20%20%20Subt%20%20%20TAU\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20ACT_TD\n%20%20%20%20%20%20%20%20Jump%20%20%20ATD_OK\n%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20ACT_TD\nATD_OK,%20Load%20%20%20ACT_DI\n\n/%20flag%20abs%20si%20hay%20activos\n%20%20%20%20%20%20%20%20Add%20%20%20%20ACT_DD\n%20%20%20%20%20%20%20%20Add%20%20%20%20ACT_TI\n%20%20%20%20%20%20%20%20Add%20%20%20%20ACT_TD\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20ABS_FLAG\n%20%20%20%20%20%20%20%20Jump%20%20%20ABS_SET_OK\n%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20ABS_FLAG\nABS_SET_OK,%20Load%20ABS_FLAG\n\n/%20desacelerar%20veh%C3%ADculo\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20V_DEC_ABS\nV_DEC_BASE,%20Load%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20K_VEH\n%20%20%20%20%20%20%20%20Store%20%20Vveh\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20%20V_DEC_DONE\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20Vveh\n%20%20%20%20%20%20%20%20Jump%20%20%20V_DEC_DONE\nV_DEC_ABS,%20Load%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20K_VEHm1\n%20%20%20%20%20%20%20%20Store%20%20Vveh\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20%20V_DEC_DONE\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20Vveh\nV_DEC_DONE,%20Load%20ACT_DI\n\n/%20ajuste%20por%20rueda%20-%20DI\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20DI_LIB\nDI_APL,%20Load%20%20%20V_DI\n%20%20%20%20%20%20%20%20Subt%20%20%20K_APL\n%20%20%20%20%20%20%20%20Store%20%20V_DI\n%20%20%20%20%20%20%20%20Load%20%20%20V_DI\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20%20DI_POST\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20V_DI\n%20%20%20%20%20%20%20%20Jump%20%20%20DI_POST\nDI_LIB,%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_DI\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Jump%20%20%20DI_POST\n%20%20%20%20%20%20%20%20Load%20%20%20V_DI\n%20%20%20%20%20%20%20%20Add%20%20%20%20K_LIB\n%20%20%20%20%20%20%20%20Store%20%20V_DI\nDI_POST,%20Load%20%20V_DI\n%20%20%20%20%20%20%20%20Subt%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20DI_ANTI\n%20%20%20%20%20%20%20%20Load%20%20Vveh\n%20%20%20%20%20%20%20%20Store%20V_DI\nDI_ANTI,%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20DI_DO_CLAMP\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20DI_DONE\nDI_DO_CLAMP,%20Load%20%20V_DI\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20DI_DONE\n%20%20%20%20%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20%20%20%20%20Store%20V_DI\nDI_DONE,%20%20Load%20ACT_DD\n\n/%20DD\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20DD_LIB\nDD_APL,%20Load%20%20%20V_DD\n%20%20%20%20%20%20%20%20Subt%20%20%20K_APL\n%20%20%20%20%20%20%20%20Store%20%20V_DD\n%20%20%20%20%20%20%20%20Load%20%20%20V_DD\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20%20DD_POST\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20V_DD\n%20%20%20%20%20%20%20%20Jump%20%20%20DD_POST\nDD_LIB,%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_DD\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Jump%20%20%20DD_POST\n%20%20%20%20%20%20%20%20Load%20%20%20V_DD\n%20%20%20%20%20%20%20%20Add%20%20%20%20K_LIB\n%20%20%20%20%20%20%20%20Store%20%20V_DD\nDD_POST,%20Load%20%20V_DD\n%20%20%20%20%20%20%20%20Subt%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20DD_ANTI\n%20%20%20%20%20%20%20%20Load%20%20Vveh\n%20%20%20%20%20%20%20%20Store%20V_DD\nDD_ANTI,%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20DD_DO_CLAMP\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20DD_DONE\nDD_DO_CLAMP,%20Load%20%20V_DD\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20DD_DONE\n%20%20%20%20%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20%20%20%20%20Store%20V_DD\nDD_DONE,%20%20Load%20ACT_TI\n\n/%20TI\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20TI_LIB\nTI_APL,%20Load%20%20%20V_TI\n%20%20%20%20%20%20%20%20Subt%20%20%20K_APL\n%20%20%20%20%20%20%20%20Store%20%20V_TI\n%20%20%20%20%20%20%20%20Load%20%20%20V_TI\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20%20TI_POST\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20V_TI\n%20%20%20%20%20%20%20%20Jump%20%20%20TI_POST\nTI_LIB,%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_TI\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Jump%20%20%20TI_POST\n%20%20%20%20%20%20%20%20Load%20%20%20V_TI\n%20%20%20%20%20%20%20%20Add%20%20%20%20K_LIB\n%20%20%20%20%20%20%20%20Store%20%20V_TI\nTI_POST,%20Load%20%20V_TI\n%20%20%20%20%20%20%20%20Subt%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20TI_ANTI\n%20%20%20%20%20%20%20%20Load%20%20Vveh\n%20%20%20%20%20%20%20%20Store%20V_TI\nTI_ANTI,%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20TI_DO_CLAMP\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20TI_DONE\nTI_DO_CLAMP,%20Load%20%20V_TI\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20TI_DONE\n%20%20%20%20%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20%20%20%20%20Store%20V_TI\nTI_DONE,%20%20Load%20ACT_TD\n\n/%20TD\n%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20Jump%20%20%20TD_LIB\nTD_APL,%20Load%20%20%20V_TD\n%20%20%20%20%20%20%20%20Subt%20%20%20K_APL\n%20%20%20%20%20%20%20%20Store%20%20V_TD\n%20%20%20%20%20%20%20%20Load%20%20%20V_TD\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20%20TD_POST\n%20%20%20%20%20%20%20%20Clear\n%20%20%20%20%20%20%20%20Store%20%20V_TD\n%20%20%20%20%20%20%20%20Jump%20%20%20TD_POST\nTD_LIB,%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Subt%20%20%20V_TD\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Jump%20%20%20TD_POST\n%20%20%20%20%20%20%20%20Load%20%20%20V_TD\n%20%20%20%20%20%20%20%20Add%20%20%20%20K_LIB\n%20%20%20%20%20%20%20%20Store%20%20V_TD\nTD_POST,%20Load%20%20V_TD\n%20%20%20%20%20%20%20%20Subt%20%20Vveh\n%20%20%20%20%20%20%20%20Skipcond%20000\n%20%20%20%20%20%20%20%20Jump%20%20TD_ANTI\n%20%20%20%20%20%20%20%20Load%20%20Vveh\n%20%20%20%20%20%20%20%20Store%20V_TD\nTD_ANTI,%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20TD_DO_CLAMP\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20TD_DONE\nTD_DO_CLAMP,%20Load%20%20V_TD\n%20%20%20%20%20%20%20%20%20%20%20%20Skipcond%20400\n%20%20%20%20%20%20%20%20%20%20%20%20Jump%20%20%20TD_DONE\n%20%20%20%20%20%20%20%20%20%20%20%20Load%20%20%20ONE\n%20%20%20%20%20%20%20%20%20%20%20%20Store%20V_TD\n\n/%20salida%20en%20pantalla\nTD_DONE,%20Load%20%20V_DI\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Load%20%20%20V_DD\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Load%20%20%20V_TI\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Load%20%20%20V_TD\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Load%20%20%20ABS_FLAG\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Load%20%20%20SEP\n%20%20%20%20%20%20%20%20Output\n\n/%20guardar%20en%20log\n%20%20%20%20%20%20%20%20Load%20%20%20V_DI\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n%20%20%20%20%20%20%20%20Load%20%20%20V_DD\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n%20%20%20%20%20%20%20%20Load%20%20%20V_TI\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n%20%20%20%20%20%20%20%20Load%20%20%20V_TD\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n%20%20%20%20%20%20%20%20Load%20%20%20Vveh\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n%20%20%20%20%20%20%20%20Load%20%20%20ABS_FLAG\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n%20%20%20%20%20%20%20%20Load%20%20%20SEP\n%20%20%20%20%20%20%20%20StoreI%20LOG_PTR\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\n\n/%20wrap%20de%20puntero%20log\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_PTR\n%20%20%20%20%20%20%20%20Subt%20%20%20LOG_END\n%20%20%20%20%20%20%20%20Skipcond%20800\n%20%20%20%20%20%20%20%20Jump%20%20%20LOG_WRAP_OK\n%20%20%20%20%20%20%20%20Load%20%20%20LOG_BASE\n%20%20%20%20%20%20%20%20Store%20%20LOG_PTR\nLOG_WRAP_OK,%20Load%20%20%20CICLO\n\n/%20siguiente%20ciclo\n%20%20%20%20%20%20%20%20Add%20%20%20%20ONE\n%20%20%20%20%20%20%20%20Store%20%20CICLO\n%20%20%20%20%20%20%20%20Jump%20%20%20LOOP\n\n/%20error%20y%20fin\nERR_VEL,%20Load%20%20%20ERR_CODE\n%20%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20%20Halt\n\nFIN,%20%20%20%20Load%20%20%20STOP_CODE\n%20%20%20%20%20%20%20%20Output\n%20%20%20%20%20%20%20%20Halt\n\n/%20variables\nVEL_IN,%20DEC%200%20%20%20%20%20%20%20%20/%20velocidad%20inicial%20(decimal)\nVveh,%20%20%20DEC%200%20%20%20%20%20%20%20%20/%20velocidad%20del%20veh%C3%ADculo\nV_DI,%20%20%20DEC%200%20%20%20%20%20%20%20%20/%20rueda%20delantera%20izquierda\nV_DD,%20%20%20DEC%200%20%20%20%20%20%20%20%20/%20rueda%20delantera%20derecha\nV_TI,%20%20%20DEC%200%20%20%20%20%20%20%20%20/%20rueda%20trasera%20izquierda\nV_TD,%20%20%20DEC%200%20%20%20%20%20%20%20%20/%20rueda%20trasera%20derecha\n\nDES_DI,%20DEC%200%20%20%20%20%20%20%20%20/%20diferencia%20DI%20-%20Vveh\nDES_DD,%20DEC%200%20%20%20%20%20%20%20%20/%20diferencia%20DD%20-%20Vveh\nDES_TI,%20DEC%200%20%20%20%20%20%20%20%20/%20diferencia%20TI%20-%20Vveh\nDES_TD,%20DEC%200%20%20%20%20%20%20%20%20/%20diferencia%20TD%20-%20Vveh\n\nACT_DI,%20DEC%200%20%20%20%20%20%20%20%20/%20flag%20ABS%20DI\nACT_DD,%20DEC%200%20%20%20%20%20%20%20%20/%20flag%20ABS%20DD\nACT_TI,%20DEC%200%20%20%20%20%20%20%20%20/%20flag%20ABS%20TI\nACT_TD,%20DEC%200%20%20%20%20%20%20%20%20/%20flag%20ABS%20TD\nABS_FLAG,%20DEC%200%20%20%20%20%20%20/%20si%20alg%C3%BAn%20ABS%20est%C3%A1%20activo\n\nCICLO,%20%20DEC%200%20%20%20%20%20%20%20%20/%20contador%20de%20ciclos\n\n/%20log\nLOG_PTR,%20%20%20DEC%200%20%20%20%20%20/%20puntero%20actual%20del%20log\nLOG_BASE,%20%20DEC%20768%20%20%20/%20base%20del%20log%20en%20memoria\nLOG_END,%20%20%20DEC%201023%20%20/%20tope%20del%20log%20en%20memoria\n\n/%20constantes\nTAU,%20%20%20%20%20DEC%201%20%20%20%20%20%20%20/%20se%20usa%20para%20determinar%20si%20hay%20slip%20alto%20(ABS%20libera)\nK_APL,%20%20%20DEC%203%20%20%20%20%20%20%20/%20cu%C3%A1nto%20baja%20la%20rueda%20si%20no%20hay%20ABS%20activo\nK_LIB,%20%20%20DEC%204%20%20%20%20%20%20%20/%20cu%C3%A1nto%20sube%20la%20rueda%20si%20ABS%20est%C3%A1%20activo\nK_VEH,%20%20%20DEC%201%20%20%20%20%20%20%20/%20desaceleraci%C3%B3n%20del%20veh%C3%ADculo%20sin%20ABS\nK_VEHm1,%20DEC%207%20%20%20%20%20%20%20/%20desaceleraci%C3%B3n%20del%20veh%C3%ADculo%20con%20ABS\nONE,%20%20%20%20%20DEC%201%20%20%20%20%20%20%20/%20constante%201\nTWO,%20%20%20%20%20DEC%202%20%20%20%20%20%20%20/%20constante%202\nSEP,%20%20%20%20%20DEC%20999%20%20%20%20%20/%20separador%20de%20valores%20en%20pantalla/log\nERR_CODE,%20DEC%20-1%20%20%20%20%20/%20c%C3%B3digo%20de%20error%20si%20la%20velocidad%20es%20inv%C3%A1lida\nSTOP_CODE,%20DEC%200%20%20%20%20%20/%20c%C3%B3digo%20de%20fin%20de%20programa\n\n%20%20%20%20%20%20%20%20END\n%22,%22breakpoints%22:{%221%22:false,%222%22:false,%224%22:false,%225%22:false,%2211%22:false,%2212%22:false,%2215%22:false,%2227%22:false,%2232%22:false,%2235%22:false,%2236%22:false},%22pointers%22:{},%22inputs%22:[],%22outputMode%22:%22hex%22,%22_timestamp%22:1761274260819,%22_id%22:%221334733a-e66b-4087-a3d8-630c61fafd90%22}" title="Emulador MARIE.js"></iframe>
-  </section>
-
-  <!-- ARDUINO -->
-  <section id="arduino" class="card" hidden>
-    <h2>Simulación Arduino (Código mostrado)</h2>
-    <pre>
-#include &lt;Arduino.h&gt;
-
-// Pines
-const int PIN_POT  = 34;   // potenciómetro: velocidad inicial
-const int PIN_BTN  = 15;   // pedal de freno (a GND), INPUT_PULLUP
-
-// LEDs ruedas (o pin B de RGB cátodo común)
-const int LED_DI = 25;
-const int LED_DD = 26;
-const int LED_TI = 27;
-const int LED_TD = 14;
-
-// LED ABS (rojo)
-const int LED_ABS = 2;     // on-board o externo
-
-// Tuning
-int TAU     = 3;
-int K_APL   = 3;
-int K_LIB   = 4;
-int K_VEH   = 1;
-int K_VEHm1 = 7;
-
-// Estado
-int Vveh=0, V_DI=0, V_DD=0, V_TI=0, V_TD=0;
-int DES_DI=0, DES_DD=0, DES_TI=0, DES_TD=0;
-int ACT_DI=0, ACT_DD=0, ACT_TI=0, ACT_TD=0;
-int ABS_FLAG=0;
-bool braking=false;
-bool lockUntilRelease=false;
-
-// Visibilidad en Wokwi
-const int MIN_PWM = 18;
-const int MAX_KMH = 120;
-
-int clamp(int x, int lo, int hi){ if(x&lt;lo) return lo; if(x&gt;hi) return hi; return x; }
-int max0(int x){ return x&lt;0?0:x; }
-
-int speedToPWM(int v){
-  v = clamp(v, 0, MAX_KMH);
-  if (v == 0) return 0;
-  int pwm = map(v, 0, MAX_KMH, 0, 255);
-  if (pwm &lt; MIN_PWM) pwm = MIN_PWM;
-  return pwm;
-}
-
-void writeWheels(){
-  analogWrite(LED_DI, speedToPWM(V_DI));
-  analogWrite(LED_DD, speedToPWM(V_DD));
-  analogWrite(LED_TI, speedToPWM(V_TI));
-  analogWrite(LED_TD, speedToPWM(V_TD));
-}
-
-void resetFromPot(){
-  int raw = analogRead(PIN_POT);
-  int VEL_IN = map(raw, 0, 4095, 0, MAX_KMH);
-  Vveh = VEL_IN;
-  V_DI = VEL_IN;
-  V_DD = max0(VEL_IN - 1);
-  V_TI = max0(VEL_IN - 2);
-  V_TD = max0(VEL_IN - 1);
-  ABS_FLAG = 0;
-  writeWheels();
-  digitalWrite(LED_ABS, LOW);
-}
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(PIN_BTN, INPUT_PULLUP);
-  pinMode(LED_ABS, OUTPUT);
-  pinMode(LED_DI, OUTPUT);
-  pinMode(LED_DD, OUTPUT);
-  pinMode(LED_TI, OUTPUT);
-  pinMode(LED_TD, OUTPUT);
-  analogReadResolution(12);
-  analogSetPinAttenuation(PIN_POT, ADC_11db);
-  analogWrite(LED_DI, 255); analogWrite(LED_DD, 255); analogWrite(LED_TI, 255); analogWrite(LED_TD, 255);
-  delay(700);
-  analogWrite(LED_DI, 0); analogWrite(LED_DD, 0); analogWrite(LED_TI, 0); analogWrite(LED_TD, 0);
-  Serial.println("ABS ESP32 listo. Gira el pot (velocidad). Pisa el boton para frenar.");
-}
-
-void loop() {
-  static uint32_t lastDebounceMs = 0;
-  static int lastBtn = HIGH;
-  int btn = digitalRead(PIN_BTN);
-  uint32_t now = millis();
-  if (now - lastDebounceMs &lt; 15) btn = lastBtn; else lastDebounceMs = now;
-  bool pressedEdge  = (lastBtn == HIGH &amp;&amp; btn == LOW);
-  bool releasedEdge = (lastBtn == LOW  &amp;&amp; btn == HIGH);
-  lastBtn = btn;
-  if (!braking &amp;&amp; !lockUntilRelease &amp;&amp; pressedEdge) { braking = true; resetFromPot(); }
-  if (lockUntilRelease &amp;&amp; releasedEdge) lockUntilRelease = false;
-
-  if (!braking) {
-    int raw = analogRead(PIN_POT);
-    int v = map(raw, 0, 4095, 0, MAX_KMH);
-    int pwm = speedToPWM(v);
-    analogWrite(LED_DI, pwm); analogWrite(LED_DD, pwm);
-    analogWrite(LED_TI, pwm); analogWrite(LED_TD, pwm);
-    digitalWrite(LED_ABS, LOW);
-    delay(25);
-    return;
-  }
-
-  DES_DI = Vveh - V_DI; DES_DD = Vveh - V_DD; DES_TI = Vveh - V_TI; DES_TD = Vveh - V_TD;
-  ACT_DI = (DES_DI &gt; TAU); ACT_DD = (DES_DD &gt; TAU);
-  ACT_TI = (DES_TI &gt; TAU); ACT_TD = (DES_TD &gt; TAU);
-  ABS_FLAG = (ACT_DI||ACT_DD||ACT_TI||ACT_TD);
-  if (ABS_FLAG) Vveh = max0(Vveh - K_VEHm1); else Vveh = max0(Vveh - K_VEH);
-
-  if (ACT_DI) V_DI += K_LIB; else V_DI = max0(V_DI - K_APL);
-  V_DI = clamp(V_DI, 0, Vveh); if (Vveh&gt;0 &amp;&amp; V_DI==0) V_DI = 1;
-
-  if (ACT_DD) V_DD += K_LIB; else V_DD = max0(V_DD - K_APL);
-  V_DD = clamp(V_DD, 0, Vveh); if (Vveh&gt;0 &amp;&amp; V_DD==0) V_DD = 1;
-
-  if (ACT_TI) V_TI += K_LIB; else V_TI = max0(V_TI - K_APL);
-  V_TI = clamp(V_TI, 0, Vveh); if (Vveh&gt;0 &amp;&amp; V_TI==0) V_TI = 1;
-
-  if (ACT_TD) V_TD += K_LIB; else V_TD = max0(V_TD - K_APL);
-  V_TD = clamp(V_TD, 0, Vveh); if (Vveh&gt;0 &amp;&amp; V_TD==0) V_TD = 1;
-
-  writeWheels(); digitalWrite(LED_ABS, ABS_FLAG);
-  Serial.print(V_DI); Serial.print('\t'); Serial.print(V_DD); Serial.print('\t');
-  Serial.print(V_TI); Serial.print('\t'); Serial.print(V_TD); Serial.print('\t'); Serial.println(Vveh);
-
-  if (Vveh==0 &amp;&amp; V_DI==0 &amp;&amp; V_DD==0 &amp;&amp; V_TI==0 &amp;&amp; V_TD==0){ digitalWrite(LED_ABS, LOW); braking=false; lockUntilRelease=true; }
-  delay(40);
-}
-    </pre>
   </section>
 
   <!-- ESP32 -->
@@ -205,21 +249,47 @@ void loop() {
     <iframe src="https://wokwi.com/projects/445652845621668865" title="ESP32 ABS (Wokwi)"></iframe>
   </section>
 
-</main>
+  
+
+  <!-- ESP32 -->
+  <section id="esp32" class="card" hidden>
+    <h2>d) Emulación ESP32</h2>
+    <iframe src="https://wokwi.com/projects/445652845621668865" title="ESP32 ABS (Wokwi)"></iframe>
+  </section>
 
 <script>
+  // Tabs
   const tabs = document.querySelectorAll('#tabs button');
   const sections = document.querySelectorAll('main section');
-  tabs.forEach(btn=>btn.addEventListener('click',()=>{
-    tabs.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    sections.forEach(s=>s.hidden = s.id !== btn.dataset.tab);
-    history.replaceState(null, '', `#${btn.dataset.tab}`);
-  }));
-  const fromHash = (location.hash||'#resumen').replace('#','');
-  const initial = document.querySelector(`#tabs [data-tab="${fromHash}"]`)||tabs[0];
-  initial.click();
-</script>
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      sections.forEach(s => s.hidden = (s.id !== btn.dataset.tab));
+      history.replaceState(null, '', `#${btn.dataset.tab}`);
+    });
+  });
 
+  // Activar la pestaña desde el hash al cargar
+  const fromHash = (location.hash || '#resumen').replace('#','');
+  const initial = document.querySelector(`#tabs [data-tab="${fromHash}"]`) || tabs[0];
+  initial.click();
+
+  // --- Construir URL de MARIE sin truncarse ---
+  const marieCode = `ORG 100
+
+INICIO, Input
+Store VEL_IN
+Load VEL_IN
+Skipcond 800
+Jump ERR_VEL
+...
+END`;
+
+  const marieProject = { code: marieCode };
+  const marieURL = 'https://marie.js.org/#project=' + encodeURIComponent(JSON.stringify(marieProject));
+  document.getElementById('marieFrame').src = marieURL;
+  document.getElementById('marieLink').href = marieURL;
+</script>
 </body>
 </html>
